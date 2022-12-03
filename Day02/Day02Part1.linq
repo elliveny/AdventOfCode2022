@@ -9,9 +9,8 @@ void Main() {
 	int totalScore = 0;
 	var line = inputFile.ReadLine();
 	while (line != null) {
-		var lineParts = line.Split(" ");
-		var opponentPlay = Decode(lineParts[0][0]);
-		var myPlay = Decode(lineParts[1][0]);
+		var opponentPlay = Decode(line[0]);
+		var myPlay = Decode(line[2]);
 		totalScore += GetScore(myPlay, opponentPlay);
 		line = inputFile.ReadLine();
 	}
