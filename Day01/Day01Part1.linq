@@ -4,7 +4,8 @@
   <Namespace>System.Net</Namespace>
 </Query>
 
-var inputFile = File.OpenText(@".\input");
+var useTestInput = false;
+var inputFile = File.OpenText(useTestInput ? @".\testinput" : @".\input");
 var line = "";
 int maxCalories = 0;
 int totalCalories = 0;
@@ -17,4 +18,6 @@ while (line != null) {
 		totalCalories += int.Parse(line);	
 	}
 }
+inputFile.Close();
 Console.WriteLine(maxCalories);
+Debug.Assert(useTestInput ? maxCalories == 24000 : maxCalories == 70296);

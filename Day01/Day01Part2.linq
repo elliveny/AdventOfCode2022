@@ -4,7 +4,8 @@
   <Namespace>System.Net</Namespace>
 </Query>
 
-var inputFile = File.OpenText(@".\input");
+var useTestInput = false;
+var inputFile = File.OpenText(useTestInput ? @".\testinput" : @".\input");
 var line = "";
 int totalCalories = 0;
 var caloriesByElf = new List<int>();
@@ -17,4 +18,7 @@ while (line != null) {
 		totalCalories += int.Parse(line);	
 	}
 }
-Console.WriteLine(caloriesByElf.OrderByDescending(calories => calories).Take(3).Sum());
+inputFile.Close();
+var top3 = caloriesByElf.OrderByDescending(calories => calories).Take(3).Sum();
+Console.WriteLine(top3);
+Debug.Assert(useTestInput ? top3 == 45000 : top3 == 205381);
