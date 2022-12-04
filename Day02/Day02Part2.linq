@@ -5,7 +5,8 @@
 </Query>
 
 void Main() {
-	var inputFile = File.OpenText(@".\input");
+	var useTestInput = false;
+	var inputFile = File.OpenText(useTestInput ? @".\testinput" : @".\input");
 	int totalScore = 0;
 	var line = inputFile.ReadLine();
 	while (line != null) {
@@ -15,7 +16,9 @@ void Main() {
 		totalScore += GetScore(myPlay, opponentPlay);
 		line = inputFile.ReadLine();
 	}
+	inputFile.Close();
 	Console.WriteLine(totalScore);
+	Debug.Assert(useTestInput ? totalScore == 12 : totalScore == 12091);
 }
 
 enum Play {

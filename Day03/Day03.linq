@@ -4,13 +4,15 @@
 </Query>
 
 void Main() {
+	var useTestInput = false;
+
 	// Part 1
-	var inputFile = File.OpenText(@".\input");
+	var inputFile = File.OpenText(useTestInput ? @".\testinput" : @".\input");
 	int totalPriorities = 0;
 	var line = inputFile.ReadLine();
 	while (line != null) {
-		var c1 = line.Substring(0, line.Length / 2);
-		var c2 = line.Substring(line.Length / 2);
+		var c1 = line.Substring(0, line.Length >> 1);
+		var c2 = line.Substring(line.Length >> 1);
 		char sharedItem = '-';
 		foreach (char item in c1) {
 			if (c2.Contains(item)) {
@@ -22,11 +24,12 @@ void Main() {
 		totalPriorities += ItemPriority(sharedItem);
 		line = inputFile.ReadLine();
 	}
-	Console.WriteLine(totalPriorities);
 	inputFile.Close();
+	Console.WriteLine($"Part 1: {totalPriorities}");
+	Debug.Assert(useTestInput ? totalPriorities == 157 : totalPriorities == 8394);
 
 	// Part 2
-	inputFile = File.OpenText(@".\input");
+	inputFile = File.OpenText(useTestInput ? @".\testinput" : @".\input");
 	totalPriorities = 0;
 	var line1 = inputFile.ReadLine();
 	var line2 = inputFile.ReadLine();
@@ -45,9 +48,9 @@ void Main() {
 		line2 = inputFile.ReadLine();
 		line3 = inputFile.ReadLine();
 	}
-	Console.WriteLine(totalPriorities);
 	inputFile.Close();
-
+	Console.WriteLine($"Part 2: {totalPriorities}");
+	Debug.Assert(useTestInput ? totalPriorities == 70 : totalPriorities == 2413);
 }
 
 int ItemPriority(char item) {
