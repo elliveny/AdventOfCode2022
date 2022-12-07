@@ -16,17 +16,12 @@ void Main() {
 
 	var cmdParser = new Dictionary<string, Action<string>>();
 	cmdParser.Add("cd", parameter => {
-		switch (parameter) {
-			case "/":
-				currentPath = "/";
-				break;
-			case "..":
-				currentPath = GetParent(currentPath);
-				break;
-			default:
-				currentPath += parameter + "/";
-				break;
-		}
+		currentPath = parameter switch {
+			"/" => "/",
+			".." => GetParent(currentPath),
+			_ => currentPath + parameter + "/"
+		};
+		if (!directorySizes.ContainsKey(currentPath)) directorySizes.Add(currentPath, 0);
 		currentLine = input.ReadLine();
 	});
 
@@ -36,12 +31,9 @@ void Main() {
 			var parts = currentLine.Split(' ');
 			switch (parts[0]) {
 				case "dir":
-					var dirPath = currentPath + parts[1] + "/";
-					if (!directorySizes.ContainsKey(dirPath)) directorySizes.Add(dirPath, 0);
 					break;
 				default:
 					var fileSize = int.Parse(parts[0]);
-					if (!directorySizes.ContainsKey(currentPath)) directorySizes.Add(currentPath, 0);
 					directorySizes[currentPath] += fileSize;
 					var path = currentPath;
 					while (path != "/") {
