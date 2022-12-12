@@ -1,11 +1,10 @@
 <Query Kind="Program">
   <Reference Relative="input">&lt;MyDocuments&gt;\LINQPad Queries\AdventOfCode2022\Day10\input</Reference>
   <Reference Relative="testinput">&lt;MyDocuments&gt;\LINQPad Queries\AdventOfCode2022\Day10\testinput</Reference>
-  <Reference Relative="..\Day09\testinput2">&lt;MyDocuments&gt;\LINQPad Queries\AdventOfCode2022\Day09\testinput2</Reference>
   <NuGetReference>System.Interactive</NuGetReference>
 </Query>
 
-static bool useTestInput = true;
+static bool useTestInput = false;
 
 void Main() {
 	var answer = Run(useTestInput ? @".\testinput" : @".\input");
